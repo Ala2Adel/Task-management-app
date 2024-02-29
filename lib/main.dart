@@ -22,13 +22,13 @@ class MyApp extends StatelessWidget {
             labelColor: AppColors.white,
             unselectedLabelStyle: const TextStyle(color: AppColors.green),
             indicatorSize: TabBarIndicatorSize.label,
-            labelPadding: EdgeInsets.zero,
+            labelPadding: EdgeInsets.symmetric(horizontal: 2),
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: AppColors.green,
             ),
           ),
         ),
-        home: const TasksScreen());
+        home: TasksScreen());
   }
 }

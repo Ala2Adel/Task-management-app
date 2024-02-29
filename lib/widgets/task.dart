@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../app_colors.dart';
+import '../models/task_model.dart';
 
 class Task extends StatelessWidget {
-  final String title;
-  final String dueDate;
+  final TaskModel task;
 
-  const Task({required this.title, required this.dueDate, Key? key}) : super(key: key);
+  const Task({required this.task, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +27,14 @@ class Task extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(title,
+                    Text(task.title,
                         style: const TextStyle(
                             fontSize: 15, color: AppColors.black, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 5),
-                    Text("Due Date: $dueDate",
+                    Text("Due Date: ${task.dueDate}",
                         style: const TextStyle(
                             fontSize: 12, color: AppColors.black, fontWeight: FontWeight.normal))
                   ]),
