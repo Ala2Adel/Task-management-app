@@ -97,6 +97,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 buttonTitle: 'Save Task',
                 onclick: () {
                   var newTask = TaskModel(
+                      id: DateTime.now().toString(),
                       title: taskTitleController.text,
                       dueDate: dueDateController.text,
                       isDone: false);
