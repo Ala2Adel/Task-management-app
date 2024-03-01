@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../blocs/tasks_bloc.dart';
 import '../models/task_model.dart';
 import '../utils/constants.dart';
 
@@ -43,15 +45,28 @@ class Task extends StatelessWidget {
                             color: Constants.blackColor,
                             fontWeight: FontWeight.normal))
                   ]),
-              Container(
-                width: 25,
-                height: 25,
-                padding: const EdgeInsetsDirectional.only(start: 6.17, bottom: 6.17),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(25)),
-                  color: Constants.primaryColor.withOpacity(0.2),
+              InkWell(
+                onTap: () {
+                  BlocProvider.of<TasksBloc>(context).add(UpdateTask(task: task));
+                },
+                borderRadius: const BorderRadius.all(Radius.circular(25)),
+                child: Container(
+                  width: 25,
+                  height: 25,
+                  padding: const EdgeInsetsDirectional.only(start: 6.17, bottom: 6.17),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(25)),
+                    color: task.isDone == true
+                        ? Constants.primaryColor.withOpacity(0.25)
+                        : Constants.primaryColor.withOpacity(0.08),
+                  ),
+                  child: SvgPicture.asset("assets/check.svg",
+                      height: 12,
+                      width: 17,
+                      color: task.isDone == true
+                          ? Constants.primaryColor
+                          : Constants.primaryColor.withOpacity(0.08)),
                 ),
-                child: SvgPicture.asset("assets/check.svg", height: 12, width: 17),
               ),
             ],
           ),

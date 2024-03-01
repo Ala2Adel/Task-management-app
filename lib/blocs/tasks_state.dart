@@ -12,7 +12,7 @@ class TasksLoading extends TasksState {}
 class TasksLoaded extends TasksState {
   final List<TaskModel> allTasks;
 
-  const TasksLoaded({this.allTasks = const <TaskModel>[]});
+   const TasksLoaded({this.allTasks = const <TaskModel>[]});
 
   @override
   List<Object> get props => [allTasks];
@@ -21,5 +21,5 @@ class TasksLoaded extends TasksState {
 class TasksError extends TasksState {
   final String? message;
 
-  const TasksError(this.message);
+   const TasksError(this.message);
 }

@@ -77,6 +77,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 height: 33,
                 child: TextField(
                     controller: dueDateController,
+                    keyboardType: TextInputType.datetime,
                     decoration: InputDecoration(
                       fillColor: Constants.greyColor.withOpacity(0.8),
                       hintText: 'Due Date',
@@ -95,8 +96,10 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
               CustomButton(
                 buttonTitle: 'Save Task',
                 onclick: () {
-                  var newTask =
-                      TaskModel(title: taskTitleController.text, dueDate: dueDateController.text);
+                  var newTask = TaskModel(
+                      title: taskTitleController.text,
+                      dueDate: dueDateController.text,
+                      isDone: false);
                   BlocProvider.of<TasksBloc>(context).add(AddTask(task: newTask));
                   Navigator.pop(context);
                 },

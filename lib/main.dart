@@ -4,7 +4,6 @@ import 'package:to_do_list/screens/tasks_screen.dart';
 import 'package:to_do_list/utils/constants.dart';
 
 import 'blocs/tasks_bloc.dart';
-import 'models/task_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,8 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          TasksBloc()..add(AddTask(task: TaskModel(title: 'first task', dueDate: '12/2/2023'))),
+      create: (context) => TasksBloc()..add(const LoadTasks()),
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           color: Constants.whiteColor,
@@ -36,7 +34,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          home: TasksScreen()),
+          home: const TasksScreen()),
     );
   }
 }
