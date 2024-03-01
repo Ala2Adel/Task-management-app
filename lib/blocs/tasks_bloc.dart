@@ -11,6 +11,18 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     on<AddTask>(_onAddTask);
     on<UpdateTask>(_onUpdateTask);
     on<LoadTasks>(_onLoadTasks);
+    on<DeleteTask>(_onDeleteTask);
+  }
+
+  void _onLoadTasks(LoadTasks event, Emitter<TasksState> emit) {
+    // try {
+    //   emit(TasksLoading());
+    //   // final tasks = await _taskRepository.getTask();
+    //   final List<TaskModel> tasks = [];
+    //   emit(TasksLoaded(allTasks: tasks));
+    // } catch (e) {
+    //   emit(TasksError(e.toString()));
+    // }
   }
 
   void _onAddTask(AddTask event, Emitter<TasksState> emit) {
@@ -37,14 +49,13 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     }
   }
 
-  void _onLoadTasks(LoadTasks event, Emitter<TasksState> emit) {
-    // try {
-    //   emit(TasksLoading());
-    //   // final tasks = await _taskRepository.getTask();
-    //   final List<TaskModel> tasks = [];
-    //   emit(TasksLoaded(allTasks: tasks));
-    // } catch (e) {
-    //   emit(TasksError(e.toString()));
-    // }
+  void _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) {
+    final state = this.state;
+    final task = event.task;
+
+    if (state is TasksLoaded) {
+      List<TaskModel> allTasks = List.from(state.allTasks)..remove(task);
+      emit(TasksLoaded(allTasks: allTasks));
+    }
   }
 }

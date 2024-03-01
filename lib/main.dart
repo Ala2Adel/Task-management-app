@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           color: Constants.whiteColor,
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.green,
             fontFamily: 'Inter',
             tabBarTheme: TabBarTheme(
               unselectedLabelColor: Constants.primaryColor,
