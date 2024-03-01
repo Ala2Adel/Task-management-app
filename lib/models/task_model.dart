@@ -1,4 +1,6 @@
-class TaskModel {
+import 'package:equatable/equatable.dart';
+
+class TaskModel extends Equatable {
   final String title;
   final String dueDate;
   bool? isDone;
@@ -37,4 +39,7 @@ class TaskModel {
       dueDate: json['dueDate'] ?? '',
       isDone: json['isDone'],
       isDeleted: json['isDeleted']);
+
+  @override
+  List<Object?> get props => [title, dueDate, isDone, isDeleted];
 }

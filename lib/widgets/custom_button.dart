@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../app_colors.dart';
+import '../utils/constants.dart';
 
 class CustomButton extends StatelessWidget {
   final String? buttonTitle;
@@ -11,20 +11,21 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onclick!(),
-      child: Container(
-        height: 53,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: AppColors.green,
+    return ElevatedButton(
+      onPressed: () => onclick!(),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Constants.primaryColor,
+        shape: const RoundedRectangleBorder(
+          side: BorderSide(color: Constants.greyColor, width: 1),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        child: Center(
-            child: Text(
-          buttonTitle!,
-          style: const TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),
-        )),
+        maximumSize: Size(MediaQuery.of(context).size.width * 0.9, 53),
       ),
+      child: Center(
+          child: Text(
+        buttonTitle!,
+        style: const TextStyle(color: Constants.whiteColor, fontWeight: FontWeight.bold),
+      )),
     );
   }
 }

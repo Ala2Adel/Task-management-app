@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../app_colors.dart';
+import '../blocs/tasks_bloc.dart';
+import '../models/task_model.dart';
+import '../utils/constants.dart';
 import 'custom_button.dart';
 
-class TaskDialog extends StatefulWidget {
-  const TaskDialog({Key? key}) : super(key: key);
+class AddTaskDialog extends StatefulWidget {
+  const AddTaskDialog({Key? key}) : super(key: key);
 
   @override
-  State<TaskDialog> createState() => _TaskDialogState();
+  State<AddTaskDialog> createState() => _AddTaskDialogState();
 }
 
-class _TaskDialogState extends State<TaskDialog> {
+class _AddTaskDialogState extends State<AddTaskDialog> {
   late TextEditingController taskTitleController;
   late TextEditingController dueDateController;
 
   @override
   void initState() {
     super.initState();
-
     taskTitleController = TextEditingController();
     dueDateController = TextEditingController();
   }
@@ -36,8 +38,9 @@ class _TaskDialogState extends State<TaskDialog> {
       height: 260,
       child: Padding(
         padding: const EdgeInsetsDirectional.only(start: 20, end: 20),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Padding(
                 padding: EdgeInsetsDirectional.only(
@@ -47,19 +50,20 @@ class _TaskDialogState extends State<TaskDialog> {
                     child: SvgPicture.asset("assets/close.svg", height: 16, width: 16)),
               ),
               const Text('Create New Task',
-                  style:
-                      TextStyle(fontSize: 15, color: AppColors.black, fontWeight: FontWeight.bold)),
+                  style: TextStyle(
+                      fontSize: 15, color: Constants.blackColor, fontWeight: FontWeight.bold)),
               const SizedBox(height: 20),
               SizedBox(
                 height: 33,
                 child: TextField(
                     controller: taskTitleController,
+                    autofocus: true,
                     decoration: InputDecoration(
-                      fillColor: AppColors.grey.withOpacity(0.8),
+                      fillColor: Constants.greyColor.withOpacity(0.8),
                       hintText: 'Task title',
                       hintStyle: TextStyle(
                           fontSize: 12,
-                          color: AppColors.black.withOpacity(0.5),
+                          color: Constants.blackColor.withOpacity(0.5),
                           fontWeight: FontWeight.normal),
                       contentPadding: const EdgeInsetsDirectional.only(start: 20),
                       border: const OutlineInputBorder(
@@ -74,11 +78,11 @@ class _TaskDialogState extends State<TaskDialog> {
                 child: TextField(
                     controller: dueDateController,
                     decoration: InputDecoration(
-                      fillColor: AppColors.grey.withOpacity(0.8),
+                      fillColor: Constants.greyColor.withOpacity(0.8),
                       hintText: 'Due Date',
                       hintStyle: TextStyle(
                           fontSize: 12,
-                          color: AppColors.black.withOpacity(0.5),
+                          color: Constants.blackColor.withOpacity(0.5),
                           fontWeight: FontWeight.normal),
                       contentPadding: const EdgeInsetsDirectional.only(start: 20),
                       border: const OutlineInputBorder(
@@ -91,15 +95,10 @@ class _TaskDialogState extends State<TaskDialog> {
               CustomButton(
                 buttonTitle: 'Save Task',
                 onclick: () {
-                  showModalBottomSheet(
-                      context: context,
-                      constraints:
-                          BoxConstraints(minWidth: MediaQuery.of(context).size.width * 0.95),
-                      shape: const RoundedRectangleBorder(
-                        side: BorderSide(color: AppColors.grey, width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      builder: (BuildContext context) => SizedBox());
+                  var newTask =
+                      TaskModel(title: taskTitleController.text, dueDate: dueDateController.text);
+                  BlocProvider.of<TasksBloc>(context).add(AddTask(task: newTask));
+                  Navigator.pop(context);
                 },
               ),
             ]),
