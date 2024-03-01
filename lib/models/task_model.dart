@@ -32,8 +32,8 @@ class TaskModel extends Equatable {
     return {
       'id': id,
       'title': title,
-      'dueDate': dueDate,
-      'isDone': isDone,
+      'due_date': dueDate,
+      'is_done': isDone,
       'isDeleted': isDeleted,
     };
   }
@@ -41,8 +41,8 @@ class TaskModel extends Equatable {
   factory TaskModel.fromMap(Map<String, dynamic> json) =>
       TaskModel(
           title: json['title'] ?? '',
-          dueDate: json['dueDate'] ?? '',
-          isDone: json['isDone'],
+          dueDate: json['due_date'] ?? '',
+          isDone: json['is_done'],
           isDeleted: json['isDeleted']);
 
   @override
